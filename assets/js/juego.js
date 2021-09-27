@@ -38,6 +38,10 @@ crearDeck();
 // Esta funcion me permite perdir carta
 const pedirCarta = () => {
 
+    if ( deck.length === 0) {
+        throw 'No hay cartas en el deck';
+    }
+
     // const carta = '2C';
     const carta = deck.pop(); //La ultima carta 
 
@@ -45,8 +49,30 @@ const pedirCarta = () => {
     // console.log(index);
     // deck.splice(index, 1);
 
-    console.log(deck);
-    return '2C';
+    console.log(carta);
+    // console.log(deck);
+    return carta;
 }
 
-pedirCarta();
+// pedirCarta();
+
+const valorCarta = (carta) => {
+
+    const valor = carta.substring(0 , carta.length - 1); //Se remueve la ultima letra
+    // let puntos = 0;
+    // El valo si so numeros es su equivalente , pero en caso de letras es dif
+    // if ( isNaN(valor)) {
+    //     console.log('No ex un numero');  
+    //     puntos = (valor === 'A') ? 11 : 10;
+    // }else {
+    //     console.log('Es un numero');
+    //     puntos = valor * 1; //Si multiplico el valor por numero, se convierte en version numerica
+    // }
+    // Vaor esta siendo un string y hay que trasnformalo a numero 
+    // console.log(puntos + 5) ;
+    return ( isNaN(valor)) ? (valor === 'A') ? 11 : 10 :  valor * 1;
+}
+
+// let valor = valorCarta('9D');
+let valor = valorCarta(pedirCarta());
+console.log({valor});
