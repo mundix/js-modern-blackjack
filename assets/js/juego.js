@@ -9,6 +9,7 @@ let deck            = [];
 const tipos         = ['C', 'D', 'H', 'S'];
 const especiales    = ['A', 'J', 'Q', 'K'];
 
+// Esta funcion crea un nuevo deck 
 const crearDeck = () => {
     for (let i=2; i <= 10; i++) {
         
@@ -16,14 +17,16 @@ const crearDeck = () => {
             deck.push(i + tipo);
         }
 
-        for(let tipo of tipos) {
-            for ( let esp of especiales ) {
-                deck.push( esp + tipo);
-            }
+        
+    }
+
+    for(let tipo of tipos) {
+        for ( let esp of especiales ) {
+            deck.push( esp + tipo);
         }
     }
 
-    console.log(deck);
+    // console.log(deck);
     deck = _.shuffle(deck);
     console.log(deck);
     return deck;
@@ -31,3 +34,19 @@ const crearDeck = () => {
 
 
 crearDeck();
+
+// Esta funcion me permite perdir carta
+const pedirCarta = () => {
+
+    // const carta = '2C';
+    const carta = deck.pop(); //La ultima carta 
+
+    // const index = deck.indexOf(carta);
+    // console.log(index);
+    // deck.splice(index, 1);
+
+    console.log(deck);
+    return '2C';
+}
+
+pedirCarta();
