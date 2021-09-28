@@ -7,7 +7,7 @@
 // Para encapsular con una funcion de flecha o landa, pero seria una funcion anonima, que se llame a si misma
 // usando (()=>{})() 
 //Esto no hace posible llamar el objeto directamente
-(() => {
+const myApp = (() => {
     //Siempre dejarlo habilitado cuadno uen esten patron
     'use strict' //Le dice a js se estricto a la hroa de usar mi codigo 
     // const personajes = ['ana', 'mercy', 'may'];
@@ -170,15 +170,15 @@
     });
 
     //  Event Nuevo 
-    btnNuevo.addEventListener('click', () => {
+    // btnNuevo.addEventListener('click', () => {
 
-        inicializarJuego(2);
+    //     inicializarJuego(2);
 
-    });
+    // });
     // Para accer accesible popiedades y o metodos de este app con el patro modulo, se debe retornar un objeto
     //  dentro se define hasta con que nombre se va a poner publico 
     return {
-        myApp: inicializarJuego
+        inicializarJuego
     }
 })();
 //Esto se conoce como el "patron moddulo" , patron muy comun que se usa fuera
