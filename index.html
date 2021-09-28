@@ -17,8 +17,8 @@
     <div class="row mt-2">
         <div class="col text-center" id="divBotones">
             <button id="btnNuevo"  class='btn btn-danger'>Nuevo Juego</button>
-            <button id="btnPedir" class='btn btn-primary'>Pedit Carta</button>
-            <button id="btnDetener"  class='btn btn-primary'>Detener</button>
+            <button id="btnPedir" disabled class='btn btn-primary'>Pedit Carta</button>
+            <button id="btnDetener" disabled class='btn btn-primary'>Detener</button>
         </div>
     </div>
 
@@ -41,5 +41,11 @@
 
     <script src="assets/js/underscore-min.js"></script>
     <script src="assets/js/juego.js"></script>
+    <script>
+        // Una ves hecho el return con el app bajo el patron modulo , puede invocarlo 
+        document.querySelector('#btnNuevo').addEventListener('click', ()=>{
+            myApp.inicializarJuego(2);
+        })
+    </script>
 </body>
 </html>

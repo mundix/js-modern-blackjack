@@ -13,7 +13,6 @@
     // const personajes = ['ana', 'mercy', 'may'];
     // console.log(personajes);
 
-
     let deck = [];
     const tipos = ['C', 'D', 'H', 'S'],
         especiales = ['A', 'J', 'Q', 'K'];
@@ -33,12 +32,18 @@
     // Esta funcion inicializa el juego. 
     const inicializarJuego = (numJugadores = 1) => {
         deck = crearDeck();
-        // console.log({numJugadores});
+
         //El ultimo jugador siempre sera la compu 
+        puntosJugadores = [];
         for (let index = 0; index < numJugadores; index++) {
             puntosJugadores.push(0);
         }
-        console.log(puntosJugadores);
+        
+
+        puntosHTML.forEach( (elem) => elem.innerText = 0);
+        divCartasJugadores.forEach( (elem) => elem.innerHTML = '');
+
+        btnDetener.disabled = btnPedir.disabled = false;
     }
 
     // Esta funcion crea un nuevo deck 
@@ -59,7 +64,6 @@
         // Method from library undercore.min.js _.shuffle();
         return _.shuffle(deck);
     };
-
 
     // Esta funcion me permite perdir carta
     const pedirCarta = () => {
@@ -90,6 +94,23 @@
                 divCartasJugadores[turno].append(imgCarta);
     }
 
+    const determinarGanador = () => {
+
+        const [puntosMinimos, puntosComputadora] = puntosJugadores;
+
+        setTimeout(() => {
+            if (puntosMinimos === puntosComputadora) {
+                alert('Nedie ganó :`(');
+            } else if (puntosMinimos > 21) {
+                alert('Computadora gana');
+            } else if (puntosComputadora > 21) {
+                alert('Jugador Gana');
+            } else {
+                alert('Computadora Gana !');
+            }
+        }, 10);
+    }
+
     const turnoComputadora = (puntosMinimos) => {
         let puntosComputadora = 0;
         do {
@@ -109,18 +130,8 @@
             }
 
         } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
-
-        setTimeout(() => {
-            if (puntosMinimos === puntosComputadora) {
-                alert('Nedie ganó :`(');
-            } else if (puntosMinimos > 21) {
-                alert('Computadora gana');
-            } else if (puntosComputadora > 21) {
-                alert('Jugador Gana');
-            } else {
-                alert('Computadora Gana !');
-            }
-        }, 10);
+        // Llama funcion que verifica quien gana, pierde o empata. 
+        determinarGanador();
 
     };
 
@@ -133,18 +144,13 @@
     // let valor = valorCarta('9D');
     //  let valor = valorCarta(pedirCarta()); //Este no esta controlado, si no que se ejecuta a la primera 
 
-    // Eventos
+    // Eventos Pedir Carta 
     btnPedir.addEventListener('click', () => {
         // #1 es tomar una carta
         const carta = pedirCarta();
         // Necesito ir sumando las cartas, crear variables puntosJugador, y puntosComputadora 
         const puntosJugador = acumularPuntos(carta, 0);
         crearCarta(carta, 0);
-        //Como hacer que aparesca una nueva carta 
-        // const imgCarta = document.createElement('img');
-        // imgCarta.src = `assets/cartas/${carta}.png`;
-        // imgCarta.classList.add('carta');
-        // divCartasJugadores.append(imgCarta);
 
         // Ahora necesto controlar la parte de los puntos. 
         // Evaluar si tienemas de 21 perdio 
@@ -165,18 +171,15 @@
 
     //  Event Nuevo 
     btnNuevo.addEventListener('click', () => {
-        //Reiniciar el deck
-        // deck = [];
-        // crearDeck();
-        console.clear();
+
         inicializarJuego(2);
-        // puntosComputadora = puntosJugador = 0;
-        // puntosHTML[0].innerHTML = puntosHTML[1].innerHTML = 0;
-        // divCartasJugador.innerHTML = divCartasComputadora.innerHTML = '';
-        // btnDetener.disabled = btnPedir.disabled = false;
 
     });
-
+    // Para accer accesible popiedades y o metodos de este app con el patro modulo, se debe retornar un objeto
+    //  dentro se define hasta con que nombre se va a poner publico 
+    return {
+        myApp: inicializarJuego
+    }
 })();
 //Esto se conoce como el "patron moddulo" , patron muy comun que se usa fuera
 
