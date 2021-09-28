@@ -16,6 +16,8 @@ let   puntosJugador = 0,
 // Espacio para las referencias dle HTML 
 const btnPedir = document.querySelector('#btnPedir');
 
+//Solo meinteresa el primero que coincide coneste ID
+const divCartasJugador =  document.querySelector('#jugador-cartas'); 
 const puntosHTML = document.querySelectorAll('small');
 
 // Esta funcion crea un nuevo deck 
@@ -74,6 +76,17 @@ btnPedir.addEventListener('click', () => {
     puntosHTML[0].innerHTML = puntosJugador;
 
     //Como hacer que aparesca una nueva carta 
-    
-    // console.log(puntosJugador);
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `assets/cartas/${carta}.png`;
+    imgCarta.classList.add('carta');
+    divCartasJugador.append(imgCarta);
+
+    // Ahora necesto controlar la parte de los puntos. 
+    // Evaluar si tienemas de 21 perdio 
+    if(puntosJugador > 21) {
+        console.warn('Lo siento mucho perdiste');
+        btnPedir.disabled = true;
+    } else if (puntosJugador === 21) {
+        console.warn('21 !!!');
+    }
 });
