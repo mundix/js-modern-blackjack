@@ -15,6 +15,8 @@ let puntosJugador = 0,
 
 // Espacio para las referencias dle HTML 
 const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
 
 //Solo meinteresa el primero que coincide coneste ID
 const divCartasJugador = document.querySelector('#jugador-cartas');
@@ -40,8 +42,7 @@ const crearDeck = () => {
     deck = _.shuffle(deck);
     console.log(deck);
     return deck;
-}
-
+};
 
 crearDeck();
 
@@ -53,15 +54,13 @@ const pedirCarta = () => {
     }
     const carta = deck.pop(); //La ultima carta 
     return carta;
-}
-
-// pedirCarta();
+};
 
 const valorCarta = (carta) => {
 
     const valor = carta.substring(0, carta.length - 1); //Se remueve la ultima letra
     return (isNaN(valor)) ? (valor === 'A') ? 11 : 10 : valor * 1;
-}
+};
 
 const turnoComputadora = (puntosMinimos) => {
     do {
@@ -76,12 +75,18 @@ const turnoComputadora = (puntosMinimos) => {
         imgCarta.classList.add('carta');
         divCartasComputadora.append(imgCarta);
 
-        if(puntosMinimos > 21) {
+        if (puntosMinimos > 21) {
             break;
         }
 
     } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
-}
+};
+
+const detenerJuego  = () =>{
+    btnPedir.disabled = true;
+    btnDetener.disabled = true;
+    turnoComputadora(puntosJugador);
+};
 
 // let valor = valorCarta('9D');
 let valor = valorCarta(pedirCarta());
@@ -104,13 +109,17 @@ btnPedir.addEventListener('click', () => {
     // Evaluar si tienemas de 21 perdio 
     if (puntosJugador > 21) {
         console.warn('Lo siento mucho perdiste');
-        btnPedir.disabled = true;
-        turnoComputadora(puntosJugador);
+        detenerJuego();
     } else if (puntosJugador === 21) {
-        turnoComputadora(puntosJugador);
+        detenerJuego();
         console.warn('21, Genial !!!');
     }
 
+});
+
+// Evento detener
+btnDetener.addEventListener('click', () => {
+    detenerJuego();
 });
 
 // TODO: borrar
