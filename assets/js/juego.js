@@ -28,7 +28,7 @@ const crearDeck = () => {
 
     // console.log(deck);
     deck = _.shuffle(deck);
-    console.log(deck);
+    // console.log(deck);
     return deck;
 }
 
@@ -49,7 +49,7 @@ const pedirCarta = () => {
     // console.log(index);
     // deck.splice(index, 1);
 
-    console.log(carta);
+    // console.log(carta);
     // console.log(deck);
     return carta;
 }
@@ -75,4 +75,4 @@ const valorCarta = (carta) => {
 
 // let valor = valorCarta('9D');
 let valor = valorCarta(pedirCarta());
-console.log({valor});
+// console.log({valor});
