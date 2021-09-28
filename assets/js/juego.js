@@ -77,9 +77,22 @@ const turnoComputadora = (puntosMinimos) => {
 
         if (puntosMinimos > 21) {
             break;
-        }
+        } 
 
     } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+    setTimeout(() => {
+        if (puntosMinimos === puntosComputadora ) {
+            alert('Nedie ganó :`(');
+        }else if (puntosMinimos > 21){
+            alert('Computadora gana');
+        } else if (puntosComputadora > 21) {
+            alert('Jugador Gana');
+        }  else {
+            alert('Computadora Gana !');
+        }
+    }, 10);
+    
 };
 
 const detenerJuego  = () =>{
@@ -113,13 +126,27 @@ btnPedir.addEventListener('click', () => {
     } else if (puntosJugador === 21) {
         detenerJuego();
         console.warn('21, Genial !!!');
-    }
+    } 
 
 });
 
 // Evento detener
 btnDetener.addEventListener('click', () => {
     detenerJuego();
+});
+
+//  Event Nuevo 
+btnNuevo.addEventListener('click', ()=>{
+    //Reiniciar el deck
+    deck = [];
+    crearDeck(); 
+    puntosComputadora = puntosJugador = 0;
+    puntosHTML[0].innerHTML = 0;
+    puntosHTML[1].innerHTML = 0;
+    divCartasJugador.innerHTML = '';
+    divCartasComputadora.innerHTML = '';
+    btnDetener.disabled  = false;
+    btnPedir.disabled  = false;
 });
 
 // TODO: borrar
