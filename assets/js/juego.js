@@ -9,6 +9,15 @@ let deck            = [];
 const tipos         = ['C', 'D', 'H', 'S'];
 const especiales    = ['A', 'J', 'Q', 'K'];
 
+// variables acumulativas para el juego
+let   puntosJugador = 0, 
+        puntosComputadora = 0;
+
+// Espacio para las referencias dle HTML 
+const btnPedir = document.querySelector('#btnPedir');
+
+const puntosHTML = document.querySelectorAll('small');
+
 // Esta funcion crea un nuevo deck 
 const crearDeck = () => {
     for (let i=2; i <= 10; i++) {
@@ -41,16 +50,7 @@ const pedirCarta = () => {
     if ( deck.length === 0) {
         throw 'No hay cartas en el deck';
     }
-
-    // const carta = '2C';
     const carta = deck.pop(); //La ultima carta 
-
-    // const index = deck.indexOf(carta);
-    // console.log(index);
-    // deck.splice(index, 1);
-
-    // console.log(carta);
-    // console.log(deck);
     return carta;
 }
 
@@ -59,20 +59,21 @@ const pedirCarta = () => {
 const valorCarta = (carta) => {
 
     const valor = carta.substring(0 , carta.length - 1); //Se remueve la ultima letra
-    // let puntos = 0;
-    // El valo si so numeros es su equivalente , pero en caso de letras es dif
-    // if ( isNaN(valor)) {
-    //     console.log('No ex un numero');  
-    //     puntos = (valor === 'A') ? 11 : 10;
-    // }else {
-    //     console.log('Es un numero');
-    //     puntos = valor * 1; //Si multiplico el valor por numero, se convierte en version numerica
-    // }
-    // Vaor esta siendo un string y hay que trasnformalo a numero 
-    // console.log(puntos + 5) ;
     return ( isNaN(valor)) ? (valor === 'A') ? 11 : 10 :  valor * 1;
 }
 
 // let valor = valorCarta('9D');
 let valor = valorCarta(pedirCarta());
-// console.log({valor});
+
+// Eventos
+btnPedir.addEventListener('click', () => {
+    // #1 es tomar una carta
+    const carta = pedirCarta();
+    // Necesito ir sumando las cartas, crear variables puntosJugador, y puntosComputadora 
+    puntosJugador = puntosJugador + valorCarta(carta);
+    puntosHTML[0].innerHTML = puntosJugador;
+
+    //Como hacer que aparesca una nueva carta 
+    
+    // console.log(puntosJugador);
+});
