@@ -27,8 +27,7 @@
         btnNuevo = document.querySelector('#btnNuevo');
 
     //Solo meinteresa el primero que coincide coneste ID
-    const divCartasJugador = document.querySelector('#jugador-cartas'),
-        divCartasComputadora = document.querySelector('#computadora-cartas'),
+    const divCartasJugadores = document.querySelectorAll('.divCartas'),
         puntosHTML = document.querySelectorAll('small');
 
     // Esta funcion inicializa el juego. 
@@ -77,23 +76,33 @@
     };
 
     //Quiero acumular los puntos de los jugaroes, la compu es un jugador 
-    const acumularPuntos = () => {
-
+    // Turno 0- primer jugador, y el ultimo es la compu 
+    const acumularPuntos = (carta, turno) => {
+        puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
+        puntosHTML[turno].innerHTML = puntosJugadores[turno];
+        return puntosJugadores[turno];
     }
 
+    const crearCarta = (carta, turno) => {
+        const   imgCarta = document.createElement('img');
+                imgCarta.src = `assets/cartas/${carta}.png`;
+                imgCarta.classList.add('carta');
+                divCartasJugadores[turno].append(imgCarta);
+    }
 
     const turnoComputadora = (puntosMinimos) => {
+        let puntosComputadora = 0;
         do {
             const carta = pedirCarta();
             // Necesito ir sumando las cartas, crear variables puntosJugador, y puntosComputadora 
-            puntosComputadora = puntosComputadora + valorCarta(carta);
-            puntosHTML[1].innerHTML = puntosComputadora;
-
+            //Es el utlimo jugador el turno 
+            puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
+            crearCarta(carta, puntosJugadores.length - 1);
             //Como hacer que aparesca una nueva carta 
-            const imgCarta = document.createElement('img');
-            imgCarta.src = `assets/cartas/${carta}.png`;
-            imgCarta.classList.add('carta');
-            divCartasComputadora.append(imgCarta);
+            // const imgCarta = document.createElement('img');
+            // imgCarta.src = `assets/cartas/${carta}.png`;
+            // imgCarta.classList.add('carta');
+            // divCartasComputadora.append(imgCarta);
 
             if (puntosMinimos > 21) {
                 break;
@@ -118,7 +127,7 @@
     const detenerJuego = () => {
         btnPedir.disabled = true;
         btnDetener.disabled = true;
-        turnoComputadora(puntosJugador);
+        turnoComputadora(puntosJugadores[puntosJugadores.length - 1]);
     };
 
     // let valor = valorCarta('9D');
@@ -129,14 +138,13 @@
         // #1 es tomar una carta
         const carta = pedirCarta();
         // Necesito ir sumando las cartas, crear variables puntosJugador, y puntosComputadora 
-        puntosJugador = puntosJugador + valorCarta(carta);
-        puntosHTML[0].innerHTML = puntosJugador;
-
+        const puntosJugador = acumularPuntos(carta, 0);
+        crearCarta(carta, 0);
         //Como hacer que aparesca una nueva carta 
-        const imgCarta = document.createElement('img');
-        imgCarta.src = `assets/cartas/${carta}.png`;
-        imgCarta.classList.add('carta');
-        divCartasJugador.append(imgCarta);
+        // const imgCarta = document.createElement('img');
+        // imgCarta.src = `assets/cartas/${carta}.png`;
+        // imgCarta.classList.add('carta');
+        // divCartasJugadores.append(imgCarta);
 
         // Ahora necesto controlar la parte de los puntos. 
         // Evaluar si tienemas de 21 perdio 
@@ -162,10 +170,10 @@
         // crearDeck();
         console.clear();
         inicializarJuego(2);
-        puntosComputadora = puntosJugador = 0;
-        puntosHTML[0].innerHTML = puntosHTML[1].innerHTML = 0;
-        divCartasJugador.innerHTML = divCartasComputadora.innerHTML = '';
-        btnDetener.disabled = btnPedir.disabled = false;
+        // puntosComputadora = puntosJugador = 0;
+        // puntosHTML[0].innerHTML = puntosHTML[1].innerHTML = 0;
+        // divCartasJugador.innerHTML = divCartasComputadora.innerHTML = '';
+        // btnDetener.disabled = btnPedir.disabled = false;
 
     });
 
