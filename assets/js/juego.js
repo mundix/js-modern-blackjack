@@ -141,12 +141,10 @@ btnNuevo.addEventListener('click', ()=>{
     deck = [];
     crearDeck(); 
     puntosComputadora = puntosJugador = 0;
-    puntosHTML[0].innerHTML = 0;
-    puntosHTML[1].innerHTML = 0;
-    divCartasJugador.innerHTML = '';
-    divCartasComputadora.innerHTML = '';
-    btnDetener.disabled  = false;
-    btnPedir.disabled  = false;
+    puntosHTML[0].innerHTML = puntosHTML[1].innerHTML = 0;
+    divCartasJugador.innerHTML = divCartasComputadora.innerHTML = '';
+    btnDetener.disabled  = btnPedir.disabled  = false;
+    
 });
 
 // TODO: borrar
